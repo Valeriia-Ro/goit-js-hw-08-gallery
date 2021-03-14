@@ -80,13 +80,9 @@ const galleryStr = gallery.join('');
 imagesEl.insertAdjacentHTML('afterbegin', galleryStr);
  
 
-
-
 function preventDef(event) {
   event.preventDefault();
 }
-
-// modal.classList.add('is-open');
 
 
 imagesEl.addEventListener('click', onGalleryItemClick);
@@ -98,9 +94,11 @@ function onGalleryItemClick (evt) {
   } 
 
   modal.classList.add('is-open');
-  
-  links.map(option => {
-    imageOnModal.src = `${option.target.original}`;});
+  gallery.forEach( img => {
+    if(img.preview === evt.target.src) {
+      imageOnModal.src = img.original;
+    }
+  });
   
 }
 
@@ -116,7 +114,7 @@ const btn = document.querySelector('.lightbox__button');
 btn.addEventListener('click', () => {
 
   modal.classList.remove('is-open');
-  imageOnModal.removeAttribute('src');
+  imageOnModal.src = '';
 });
 
 console.log(imageOnModal.src);
