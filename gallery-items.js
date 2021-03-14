@@ -64,30 +64,51 @@ const links = [
   },
 ]
 
+
 const imagesEl = document.querySelector('.js-gallery');
+const imageOnModal = document.querySelector('.lightbox__image');
+const modal = document.querySelector('.js-lightbox');
 
 const gallery = links.map(option => {
-
-  return `<li class="gallery__item"><a class="gallery__link" href="${option.original}"><img class="gallery__image" src="${option.preview}" data-source="${option.original}" alt ="${option.description}"></img></a></li>`;
-
+  
+  return `<li class="gallery__item"><a class="gallery__link" href="${option.original}" onclick="event.preventDefault()"><img class="gallery__image" src="${option.preview}" data-source="${option.original}" alt ="${option.description}"></img></a></li>`;
+  
 });
 
 const galleryStr = gallery.join('');
 
 imagesEl.insertAdjacentHTML('afterbegin', galleryStr);
  
-const modal = document.querySelector('.js-lightbox');
 
-modal.classList.add('is-open');
 
-// imagesEl.addEventListener('click', onGalleryItemClick);
 
-// function onGalleryItemClick (evt) {
-//   if(!evt.target.classList.contains('gallery__item')) {
-//     return;
-//   }
-//   modal.classList.add('is-open');
-// }
+function preventDef(event) {
+  event.preventDefault();
+}
+
+// modal.classList.add('is-open');
+
+
+imagesEl.addEventListener('click', onGalleryItemClick);
+
+function onGalleryItemClick (evt) {
+  
+  if(!evt.target.classList.contains('gallery__image')) {
+   return;
+  } 
+
+  modal.classList.add('is-open');
+  
+  links.map(option => {
+    imageOnModal.src = `${option.target.original}`;});
+  
+}
+
+// const modalOpen = links.map(option => {
+//   imageOnModal.src = `${option.original}`;});
+
+// console.log(imageOnModal.src);
+
 
 // button
 const btn = document.querySelector('.lightbox__button');
@@ -95,6 +116,7 @@ const btn = document.querySelector('.lightbox__button');
 btn.addEventListener('click', () => {
 
   modal.classList.remove('is-open');
+  imageOnModal.removeAttribute('src');
 });
 
-
+console.log(imageOnModal.src);
