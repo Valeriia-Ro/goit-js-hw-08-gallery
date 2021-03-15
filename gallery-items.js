@@ -50,7 +50,7 @@ const links = [
   },
   {
     preview:
-      'https://cdn.pixabay.com/photo/2019/05/16/21/10/landscape-4208255__340.jpg',
+      'https://cdn.pixabay.com/photo/2019/05/16/21/10/landscape-4208255__340.jpg', 
     original:
       'https://cdn.pixabay.com/photo/2019/05/16/21/10/landscape-4208255_1280.jpg',
     description: 'Nature Landscape',
@@ -85,6 +85,7 @@ function preventDef(event) {
 }
 
 
+
 imagesEl.addEventListener('click', onGalleryItemClick);
 
 function onGalleryItemClick (evt) {
@@ -94,19 +95,9 @@ function onGalleryItemClick (evt) {
   } 
 
   modal.classList.add('is-open');
-  gallery.forEach( img => {
-    if(img.preview === evt.target.src) {
-      imageOnModal.src = img.original;
-    }
-  });
-  
+ 
+  imageOnModal.src = evt.target.getAttribute('data-source');
 }
-
-// const modalOpen = links.map(option => {
-//   imageOnModal.src = `${option.original}`;});
-
-// console.log(imageOnModal.src);
-
 
 // button
 const btn = document.querySelector('.lightbox__button');
